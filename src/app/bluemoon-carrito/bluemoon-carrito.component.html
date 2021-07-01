@@ -1,0 +1,11 @@
+<html >
+    <h1>Carrito</h1>
+    <table>
+        <tr *ngFor="let p of cartList$ | async">
+            <td>
+                {{p.nombre}}: {{p.cantidad}}
+            </td> 
+        </tr>
+    </table>
+    
+</html>

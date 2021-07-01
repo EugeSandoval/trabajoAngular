@@ -1,0 +1,36 @@
+<html class="html">
+    <h1>Menú de Postres</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Imagen</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Cantidad</th>
+                <th>Compra</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let producto of productos" [ngClass]="{oferta:producto.oferta}">
+                <th>{{producto.nombre}}
+                    <p class="badge bg-warning" *ngIf="producto.oferta">OFERTA</p>
+                </th>
+                <td><img class="img-thumbnail" [src]="producto.imagen" [alt]="producto.nombre" width="100"></td>
+                <td>{{producto.precio | currency}}</td>
+                <td><span class="badge bg-secondary" *ngIf="producto.stock==0">SIN STOCK</span>
+                    <span class="badge bg-success" *ngIf="producto.stock!=0">DISPONIBLE</span>
+                    <p *ngIf="producto.stock!=0">Quedan {{producto.stock}} disponibles</p>
+                </td>
+                <td>
+                    <app-input-integer 
+                        [(cantidad)]="producto.cantidad" [max]="producto.stock" (maxReached)="maxReached($event)" *ngIf="producto.stock">
+                    </app-input-integer>
+                </td>
+                <td>
+                    <button class="btn btn-secondary btn-sm" (click)="addToCart(producto)">Comprar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</html>
